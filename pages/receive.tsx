@@ -75,16 +75,16 @@ export default function Receive({phoneRequests}: any) {
             address: "",
         }
 
-        if (phoneSelected != null) {
-            payload.id = phoneSelected.id;
+        // if (phoneSelected != null) {
+        //     payload.id = phoneSelected.id;
 
-            // let tem = availablePhones.filter((i) => { i.id != phoneSelected })
-            // console.log(availablePhones)
-            // console.log(tem)
+        //     // let tem = availablePhones.filter((i) => { i.id != phoneSelected })
+        //     // console.log(availablePhones)
+        //     // console.log(tem)
 
-            // payload.phoneRequested = phoneSelected.phoneRequested;
-            // payload.phoneNumber = phoneSelected.phoneNumber;
-        }
+        //     // payload.phoneRequested = phoneSelected.phoneRequested;
+        //     // payload.phoneNumber = phoneSelected.phoneNumber;
+        // }
 
         payload.name = requesterName
         payload.address = requesterAddress
@@ -162,7 +162,7 @@ function SelectableCard({phoneId}: any) {
         if (!selected) {
             setPhoneSelected(phoneId.id)
         } else {
-            setPhoneSelected(null)
+            // setPhoneSelected(null)
         }
         setSelected(!selected);
     }   
