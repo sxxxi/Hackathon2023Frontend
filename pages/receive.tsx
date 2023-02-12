@@ -29,14 +29,15 @@ export type PhoneRequest = {
     phoneRequested: string,
     name: string,
     phoneNumber: string,
-    address: string
+    address: string,
 }
 
 export type PhoneId = {
     id: string,
     imageLink: string,
     phoneRequested: string,
-    phoneNumber: string
+    phoneNumber: string,
+    instruction: string
 }
 
 export async function getServerSideProps()  {
@@ -61,6 +62,7 @@ export default function Receive({phoneRequests}: any) {
             id: i.id,
             imageLink: i.imageLink,
             phoneRequested: i.title,
+            instruction: i.instructions
         }
     });
 
@@ -117,6 +119,10 @@ export default function Receive({phoneRequests}: any) {
         <Modal></Modal>
         <form onSubmit={handleSubmit}>
             <h1 className="text-blue-600 text-xl">Choose your phone</h1>
+            {/* <div>
+                <h1>Instructions: </h1>
+                <div>{availablePhones.find((i) => i.id == phoneSelected)}</div>
+            </div> */}
             <div className={`flex flex-wrap justify-between`}>
                 <SelectedCardContext.Provider value={{phoneSelected, setPhoneSelected}}>
                     {availablePhones.map((i: PhoneId) => <SelectableCard key={i.id} phoneId={i} />)}
