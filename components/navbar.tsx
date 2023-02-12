@@ -7,8 +7,8 @@ import Image from "next/image";
 export default function Navbar(props: any) {
     return (
         // <nav className="flex flex-row justify-around border-b h-20 py-6 space-x-24 pl-8 pr-8">
-        <nav className="grid grid-cols-3 h-20 py-5 border-b">
-            <Link href={"/"} className="flex justify-center">
+        <nav className="grid grid-cols-3 h-20 py-5 ">
+            <Link href={"/home"} className="flex justify-center">
                 <Image
                     src={"/res/img/createchangelogo.png"}
                     alt={"site logo"}
@@ -19,8 +19,8 @@ export default function Navbar(props: any) {
             {/* middle area */}
 
             <div className="flex flex-row align-middle justify-around grow">
-                <NavButton href={"/"}>Donate</NavButton>
-                <NavButton href={"/"}>Request</NavButton>
+                <NavButton href={"/donate"}>Donate</NavButton>
+                <NavButton href={"/receive"}>Request</NavButton>
                 <NavButton href={"/"}>Learn</NavButton>
                 <NavButton href={"/"}>About us</NavButton>
             </div>    

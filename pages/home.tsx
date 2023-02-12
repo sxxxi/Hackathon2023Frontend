@@ -21,8 +21,8 @@ export default function Home(props: any) {
           <p className="text-sm my-4">We&apos;re a non-profit dedicated to bridging the digital gap<br></br> and promoting equal access to technology for all. </p>
         
           <div className="flex flex-row space-x-2">
-            <Button href={""} grow={true}>Donate</Button>
-            <Button href={""} grow={true}>Request</Button>
+            <Button href={"/donate"} grow={true}>Donate</Button>
+            <Button href={"/receive"} grow={true}>Request</Button>
             <Button href={""} grow={true}>Learn</Button>
           </div>
         </div>
@@ -49,6 +49,9 @@ export default function Home(props: any) {
           head={"Choose the devices you wish to donate."}
           body={"Fill out an application"} />
       </div>
+
+      <h1 className="font-medium text-xl mt-4">Who We Are</h1>
+      <h2 className="text-sm text-gray-400 mb-4">HOW WE CAN HELP</h2>
       
     </>
 
@@ -67,5 +70,24 @@ function StatementCard({ iconSrc, head, body }: any) {
       <p>{body}</p>
     </div>
   );
+}
+
+function horizontalCard() {
+  return (
+
+    <div className="flex flex-row">
+        <Image 
+          className="flex grow"
+          src="/res/img/banan.jpg"
+          width={400}
+          height={200}
+          alt='alt' />
+
+        <div className="">
+          Lorem ipsum
+        </div>
+    </div>
+    
+  )
 }
 
