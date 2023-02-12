@@ -8,7 +8,7 @@ export default function Navbar(props: any) {
     return (
         // <nav className="flex flex-row justify-around border-b h-20 py-6 space-x-24 pl-8 pr-8">
         <nav className="grid grid-cols-3 h-20 py-5 ">
-            <Link href={"/home"} className="flex justify-center">
+            <Link href={"/"} className="flex justify-center">
                 <Image
                     src={"/res/img/createchangelogo.png"}
                     alt={"site logo"}
@@ -21,12 +21,12 @@ export default function Navbar(props: any) {
             <div className="flex flex-row align-middle justify-around grow">
                 <NavButton href={"/donate"}>Donate</NavButton>
                 <NavButton href={"/receive"}>Request</NavButton>
-                <NavButton href={"/"}>Learn</NavButton>
-                <NavButton href={"/"}>About us</NavButton>
+                <NavButton href={""}>Learn</NavButton>
+                <NavButton href={""}>About us</NavButton>
             </div>    
             <div className="flex flex-row justify-center space-x-2 grow">
-                <Button href={"/"}>Login</Button>
-                <Button href={"/"} fill={false}>Contact Us</Button>
+                <Button href={""}>Login</Button>
+                <Button href={""} fill={false}>Contact Us</Button>
             </div>    
         </nav>
     );
