@@ -179,7 +179,7 @@ function SelectableCard({phoneId}: any) {
             <div className="absolute w-full h-full hover:border-blue-300" id={phoneId.id}></div>
             {/* image wrapper */}
             <div className="flex flex-col grow">
-                <Image src={(imageSrc)? imageSrc : "/res/img/iphone5.png"} className="object-fit"
+                <Image src={(imageSrc)? imageSrc : "/res/img/cardico3.png"} className="object-fit"
                 width={150} height={100} alt={phoneId.phoneRequested} />
             </div>
             <div className="flex flex-col">

@@ -36,17 +36,17 @@ export default function Home(props: any) {
       <h2 className="text-sm text-gray-400 mb-4">DONATIONS</h2>
       <div className="flex flex-row justify-between">
         <StatementCard
-          iconSrc={"/res/img/banan.jpg"}
+          iconSrc={"/res/img/cardico1.png"}
           head={"Choose the devices you wish to donate."}
           body={"Fill out an application"} />
 
         <StatementCard
-          iconSrc={"/res/img/banan.jpg"}
+          iconSrc={"/res/img/cardico2.png"}
           head={"Choose the device's eligibility."}
           body={"Fill out an application"} />
 
         <StatementCard
-          iconSrc={"/res/img/banan.jpg"}
+          iconSrc={"/res/img/cardico3.png"}
           head={"Choose the devices you wish to donate."}
           body={"Fill out an application"} />
       </div>
