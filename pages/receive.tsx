@@ -4,7 +4,11 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { createContext } from "vm";
 import { SelectedCardContext } from "@/components/contexts/SelectedCardContext";
 import { NamedInput } from "./donate";
+import Modal from "@/components/modal";
 // import {GetStaticProps} from 'next';
+
+
+const backendUrl = process.env.BACKEND_URL
 
 export type PhoneDonation = {
     id: string
@@ -35,31 +39,30 @@ export type PhoneId = {
     phoneNumber: string
 }
 
-// export async function getServerSideProps()  {
-//         const data = await fetch(`http://localhost:8080/donate/`, {
-//             method: "get",
-//             headers: {
-//                 'Content-Type': 'application/json',
-//                 'Accept': 'application/json'
-//             }})
-//             .then(res => res.json())
-//         return {props: {phoneRequests: data}};
-// }
+export async function getServerSideProps()  {
+        const data = await fetch(`${backendUrl}/donate/`, {
+            method: "get",
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }})
+            .then(res => res.json())
+        return {props: {phoneRequests: data}};
+}
 
-const backendUrl = "BACKEND_URL"
 export default function Receive({phoneRequests}: any) {
     // use phoneId.id
-    const [phoneSelected, setPhoneSelected] = useState<PhoneId>();
+    const [phoneSelected, setPhoneSelected] = useState();
     const [requesterName, setRequesterName] = useState("");
     const [requesterAddress, setRequesterAddress] = useState("");
-    const availablePhones: Array<PhoneId> = []
-    // const availablePhones: Array<PhoneId> = phoneRequests.map((i: PhoneDonation) => {
-    //     return {
-    //         id: i.id,
-    //         imageLink: i.imageLink,
-    //         phoneRequested: i.title,
-    //     }
-    // });
+    // const availablePhones: Array<PhoneId> = []
+    const availablePhones: Array<PhoneId> = phoneRequests.map((i: PhoneDonation) => {
+        return {
+            id: i.id,
+            imageLink: i.imageLink,
+            phoneRequested: i.title,
+        }
+    });
 
 
     const handleSubmit = async (event: any) => {
@@ -74,9 +77,17 @@ export default function Receive({phoneRequests}: any) {
 
         if (phoneSelected != null) {
             payload.id = phoneSelected.id;
-            payload.phoneRequested = phoneSelected.phoneRequested;
-            payload.phoneNumber = phoneSelected.phoneNumber;
+
+            // let tem = availablePhones.filter((i) => { i.id != phoneSelected })
+            // console.log(availablePhones)
+            // console.log(tem)
+
+            // payload.phoneRequested = phoneSelected.phoneRequested;
+            // payload.phoneNumber = phoneSelected.phoneNumber;
         }
+
+        payload.name = requesterName
+        payload.address = requesterAddress
 
         // handle posts here. Ill get back to it.
         const options = {
@@ -89,13 +100,24 @@ export default function Receive({phoneRequests}: any) {
             body: JSON.stringify(payload)
         }
 
-        fetch('localhost:8080/donate', options).then(res=> res.json).then(data=> console.log(data));
+
+        // console.log(phoneSelected)
+        // let tem = availablePhones.find((i) =>  {
+        //     console.log(i.id);
+        //     return i.id == phoneSelected})
+            
+        // console.log(tem)
+        // console.log(payload)
+
+        fetch(`${backendUrl}/receive`, options).then(res=> console.log(res));
     }
 
     return (
+        <>
+        <Modal></Modal>
         <form onSubmit={handleSubmit}>
             <h1 className="text-blue-600 text-xl">Choose your phone</h1>
-            <div className={`flex flex-row space-x-3`}>
+            <div className={`flex flex-wrap justify-between`}>
                 <SelectedCardContext.Provider value={{phoneSelected, setPhoneSelected}}>
                     {availablePhones.map((i: PhoneId) => <SelectableCard key={i.id} phoneId={i} />)}
                 </SelectedCardContext.Provider>
@@ -114,6 +136,7 @@ export default function Receive({phoneRequests}: any) {
                 <input type="submit" className="bg-blue-600 text-white rounded-md p-4" value="Submit" />
             </div>                         
         </form>
+        </>
     )
 }
 
@@ -139,24 +162,24 @@ function SelectableCard({phoneId}: any) {
         if (!selected) {
             setPhoneSelected(phoneId.id)
         } else {
-            setPhoneSelected(bkup)
+            setPhoneSelected(null)
         }
         setSelected(!selected);
     }   
 
     return (
-            <div onClick={clickHandler} className={`relative border-2 rounded-md ${borderStyle} flex flex-col grow-0 w-max-150`}> 
-                {/* <Image src={phoneId.imageLink} */}
-                <div className="absolute w-full h-full hover:border-blue-300" id={phoneId.id}></div>
-                {/* image wrapper */}
-                <div className="flex flex-col grow">
-                    <Image src={imageSrc} className="object-fit"
-                    width={150} height={100} alt={phoneId.phoneRequested} />
-                </div>
-                <div className="flex flex-col">
-                    <h2 className="font-bold text-center">{phoneId.phoneRequested}</h2>
-                </div>
+        <div onClick={clickHandler} className={`relative border-2 rounded-md ${borderStyle} flex flex-col grow-0 w-max-150 w-min-150`}> 
+            {/* <Image src={phoneId.imageLink} */}
+            <div className="absolute w-full h-full hover:border-blue-300" id={phoneId.id}></div>
+            {/* image wrapper */}
+            <div className="flex flex-col grow">
+                <Image src={(imageSrc)? imageSrc : "/res/img/iphone5.png"} className="object-fit"
+                width={150} height={100} alt={phoneId.phoneRequested} />
             </div>
+            <div className="flex flex-col">
+                <h2 className="font-bold text-center">{phoneId.phoneRequested}</h2>
+            </div>
+        </div>
     );
 } 
 

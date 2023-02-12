@@ -2,6 +2,9 @@ import Button from "@/components/Button";
 import Image from "next/image";
 import { ChangeEvent, Dispatch, HtmlHTMLAttributes, SetStateAction, SyntheticEvent, useState } from "react";
 
+
+const backendUrl = process.env.BACKEND_URL
+
 type DonationRequest = {
     id: string,
     title: string,
@@ -28,16 +31,7 @@ export default function Donate(props: any) {
     
     const handleSubmit = async (event: any) => {
         event.preventDefault();
-
-        // handle posts here. Ill get back to it.
-        const options = {
-            method: "post",
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-                'Access-Control-Allow-Origin': '*'
-            },
-            body: JSON.stringify({
+        const payload = JSON.stringify({
                 id: "",
                 title: deviceModel,
                 category: category,
@@ -50,9 +44,30 @@ export default function Donate(props: any) {
                 imageLink: "",
                 instructions: "",
             })
+
+        // handle posts here. Ill get back to it.
+        const options = {
+            method: "POST",
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            },
+            body: payload
         }
 
-        fetch('localhost:8080/donate', options).then(res=> res.json).then(data=> console.log(data));
+        console.log(payload)
+        await fetch(`${backendUrl}/donate`, {
+            method: "POST",
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            },
+            body: payload 
+        })
     }
     
     return(
